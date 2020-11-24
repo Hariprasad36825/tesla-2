@@ -3,7 +3,7 @@
   require_once('mysqli.php');
   $sql_e = "SELECT trimid,img,model FROM car";
   $res_e = mysqli_query($mysqli1, $sql_e);
-  
+  //hai
 ?>
 <!DOCTYPE html>
 <html lang="en">
