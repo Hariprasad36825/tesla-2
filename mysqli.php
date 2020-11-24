@@ -1,5 +1,5 @@
 <?php
-$mysqli1 = new mysqli("localhost","root","Mysql@hari#2001","tesla");
+$mysqli1 = new mysqli("localhost","root","","tesla");
 
 // Check connection
 if ($mysqli1 -> connect_errno) {
