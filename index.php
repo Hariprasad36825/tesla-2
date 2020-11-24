@@ -3,6 +3,7 @@
   require_once('mysqli.php');
   $sql_e = "SELECT trimid,img,model FROM car";
   $res_e = mysqli_query($mysqli1, $sql_e);
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,14 +105,14 @@ html{
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
 <nav class="navbar navbar-default navbar-fixed-top">
     <!-- Brand/logo -->
-    <div class="container-fluid">
+    <div class="container-fluid ">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>                        
         </button>
-        <a class="navbar-brand" href="#myPage" style="color:red;">TESLA</a>
+        <b><a class="navbar-brand" href="#myPage">TESLA</a></b>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <!-- Links -->
@@ -208,7 +209,11 @@ html{
         </div>
 		<div class="carousel-caption model"><h2>'.$res['model'].'</div>
         <div class="carousel-caption">
-        <input type="button" class=" btn" data-toggle="modal" data-target="#myModal" onclick="ch();" value="BUY NOW"></input>
+        <a href = "payment.php?trimid='.$res['trimid'].'">
+        <input type="button" class=" btn" data-toggle="modal" data-target="#myModal"  value="BUY NOW"></input>
+        </a>
+        <a href="design.php?trimid='.$res['trimid'].'">
+		    <input type="button" class=" btn" data-toggle="modal" data-target="#myModal" value="DETAILS"></input></a>
         </div>
         </div>';
       }
@@ -220,5 +225,8 @@ html{
 <script>
 function ch(){
 window.location.href=<?php echo '"payment.php?trimid='.$res['trimid'].'"' ?>
+}
+function ch1(){
+window.location.href=<?php echo '"design.php?trimid='.$res['trimid'].'"' ?>
 }
 </script>
