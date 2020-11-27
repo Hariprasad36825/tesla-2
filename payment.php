@@ -8,23 +8,24 @@
   }
   if(isset($_POST['nameOnCard']))
   {
-	  #print_r($_POST);
 	  if((date('y')<$_POST['year'])||(date('y')==$_POST['year'] && date('m')<$_POST['month']))
 	  {
 		  $sql="insert into orders_placed(emailid,trimid) values ('".$_SESSION['userid']."','".$_SESSION['trimid']."')";
 		  $mysqli1->query($sql);
 		  $orderId=mysqli_insert_id($mysqli1);
 		  $sql="insert into payment(name_on_card,billing_zip,cvv,expiry_date,credit_card_no,orderid) values('".$_POST['nameOnCard']."',".$_POST['zip'].",".$_POST['cv'].",STR_TO_DATE('1-".$_POST['month']."-".$_POST['year']."','%e-%m-%y'),".$_POST['cardNumber'].",".$orderId.")";
-		  echo($sql);
 		  $mysqli1->query($sql);
 		  $sql="insert into location(orderid,doorno,city,country,zip_code) values(".$orderId.",'".$_POST['doorNo']."','".$_POST['city']."','".$_POST['country']."',".$_POST['zip'].")";
 		  $mysqli1->query($sql);
+		  header("Location:congratulations.php");
+		  exit();
 	  }
 	  else
 	  {
+		  
 		  $_SESSION['err']="Credit card expired";
-          header('Location:payment.php?trimid='.$_SESSION['trimid']);
-          exit();
+		  header('Location:payment.php?trimid='.$_SESSION['trimid']);
+		  exit();
 	  }
   }
   else
@@ -49,6 +50,9 @@
     .panel-title {display: inline;font-weight: bold;}
     .checkbox.pull-right { margin: 0; }
     .pl-ziro { padding-left: 0px; }
+	.err{
+		
+	}
 </style>
 <body>
     <div class="container">
@@ -106,9 +110,9 @@
                                 </div>
                             </div>
                         </div>
-                        <?php if (isset($_SESSION['err'])): ?>
-                        <b><span style = "color:red"><?php echo $_SESSION['err'];unset($_SESSION['err']);?></span></b>
-                        <?php endif ?>
+						<?php if (isset($_SESSION['err'])): ?>
+						<b><span style="color:red;"><?php echo $_SESSION['err'];unset($_SESSION['err']);?></span></b>
+						<?php endif ?>
 						<center><u><h3 class="panel-title" style="">Delivery Address</h3></u></center>
 						<div class="form-group">
                             <label for="doorNo">
@@ -151,7 +155,7 @@
 						</li>
 						</ul>
 						<br/>
-						<input type="submit" href = "congradulation.php" class="btn btn-success btn-lg btn-block" role="button" value="Pay Now">
+						<input type="submit" class="btn btn-success btn-lg btn-block" role="button" value="Pay Now">
                         </form>
                     </div>
                 </div>
